@@ -1,3 +1,4 @@
+import getSongsByUserId from "@/actions/get-songs-by-user-id";
 import SideBar from "@/components/sidebar";
 import ModalProvider from "@/providers/modal-provider";
 import SupaBaseProvider from "@/providers/supabase-provider";
@@ -14,11 +15,12 @@ export const metadata: Metadata = {
   description: "Spotify clone next13, strype, supabase, postgresql, tailwind",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const userSongs = await getSongsByUserId();
   return (
     <html lang="en">
       <body className={figtree.className}>
@@ -26,7 +28,7 @@ export default function RootLayout({
           <UserProvider>
             <ToastProvider />
             <ModalProvider />
-            <SideBar>{children}</SideBar>
+            <SideBar songs={userSongs}>{children}</SideBar>
           </UserProvider>
         </SupaBaseProvider>
       </body>
