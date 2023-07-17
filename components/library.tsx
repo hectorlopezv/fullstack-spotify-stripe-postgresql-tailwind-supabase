@@ -1,10 +1,22 @@
 "use client";
 import { TbPlaylist } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
+import useAuthModal from "@/hooks/use-auth-modal";
+import { useUser } from "@/hooks/use-user";
+import useUploadModal from "@/hooks/use-upload-modal";
 type Props = {};
 
 export default function Library({}: Props) {
-  const onClick = () => {};
+  const onOpen = useAuthModal((state) => state.onOpen);
+  const onOpenSongModal = useUploadModal((state) => state.onOpen);
+
+  const { user } = useUser();
+  const onClick = () => {
+    if (!user) {
+      return onOpen();
+    }
+    onOpenSongModal();
+  };
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between px-5 pt-4">

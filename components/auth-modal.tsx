@@ -32,8 +32,8 @@ export default function AuthModal({}: Props) {
   }, [router, session, onClose]);
   return (
     <Modal
-      title="Test Modal"
-      description="Test Description"
+      title="Authenticate to continue"
+      description="You need to be authenticated to continue."
       isOpen={isOpen}
       onChange={onChange}
     >
