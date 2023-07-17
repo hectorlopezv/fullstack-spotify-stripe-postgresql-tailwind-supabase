@@ -1,4 +1,6 @@
 import SideBar from "@/components/sidebar";
+import SupaBaseProvider from "@/providers/supabase-provider";
+import UserProvider from "@/providers/user-provider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
@@ -18,7 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={figtree.className}>
-        <SideBar>{children}</SideBar>
+        <SupaBaseProvider>
+          <UserProvider>
+            <SideBar>{children}</SideBar>
+          </UserProvider>
+        </SupaBaseProvider>
       </body>
     </html>
   );
