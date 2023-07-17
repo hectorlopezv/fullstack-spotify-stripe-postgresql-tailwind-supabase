@@ -1,5 +1,7 @@
 import SideBar from "@/components/sidebar";
+import ModalProvider from "@/providers/modal-provider";
 import SupaBaseProvider from "@/providers/supabase-provider";
+import ToastProvider from "@/providers/toast-provider";
 import UserProvider from "@/providers/user-provider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -22,6 +24,8 @@ export default function RootLayout({
       <body className={figtree.className}>
         <SupaBaseProvider>
           <UserProvider>
+            <ToastProvider />
+            <ModalProvider />
             <SideBar>{children}</SideBar>
           </UserProvider>
         </SupaBaseProvider>
