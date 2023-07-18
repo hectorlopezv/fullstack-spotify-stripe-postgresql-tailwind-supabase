@@ -7,6 +7,7 @@ import useUploadModal from "@/hooks/use-upload-modal";
 import { Song } from "@/types";
 import MediaItem from "./media-items";
 import useOnPlay from "@/hooks/useOnPlay";
+import useSubscribeModal from "@/hooks/use-subscribe-modal";
 type Props = {
   songs: Song[];
 };
@@ -14,13 +15,16 @@ type Props = {
 export default function Library({ songs }: Props) {
   const onOpen = useAuthModal((state) => state.onOpen);
   const onOpenSongModal = useUploadModal((state) => state.onOpen);
-
+  const subscribeModal = useSubscribeModal();
   const onPlay = useOnPlay(songs);
 
-  const { user } = useUser();
+  const { user, subscription } = useUser();
   const onClick = () => {
     if (!user) {
       return onOpen();
+    }
+    if (!subscription) {
+      return subscribeModal.onOpen();
     }
     onOpenSongModal();
   };

@@ -1,6 +1,8 @@
+import getActiveProductsWithPrices from "@/actions/get-active-products-with-prices";
 import getSongsByUserId from "@/actions/get-songs-by-user-id";
 import Player from "@/components/player";
 import SideBar from "@/components/sidebar";
+import SubscribeModal from "@/components/subscribe-modal";
 import ModalProvider from "@/providers/modal-provider";
 import SupaBaseProvider from "@/providers/supabase-provider";
 import ToastProvider from "@/providers/toast-provider";
@@ -23,6 +25,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const userSongs = await getSongsByUserId();
+  const products = await getActiveProductsWithPrices();
   return (
     <html lang="en">
       <body className={figtree.className}>
@@ -30,6 +33,7 @@ export default async function RootLayout({
           <UserProvider>
             <ToastProvider />
             <ModalProvider />
+            <SubscribeModal products={products} />
             <SideBar songs={userSongs}>{children}</SideBar>
             <Player />
           </UserProvider>
