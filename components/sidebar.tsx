@@ -7,6 +7,8 @@ import Box from "./box";
 import SideBarItem from "./sidebar-item";
 import Library from "./library";
 import { Song } from "@/types";
+import { cn } from "@/lib/utils";
+import usePlayer from "@/hooks/use-player";
 type Props = {
   children: ReactNode;
   songs: Song[];
@@ -14,6 +16,7 @@ type Props = {
 
 export default function SideBar({ children, songs }: Props) {
   const pathname = usePathname();
+  const player = usePlayer();
   const routes = useMemo(() => {
     return [
       {
@@ -32,7 +35,15 @@ export default function SideBar({ children, songs }: Props) {
   }, [pathname]);
 
   return (
-    <div className="flex h-full">
+    <div
+      className={cn(
+        `
+    flex 
+    h-full
+    `,
+        player.activeId && "h-[calc(100%-80px)]"
+      )}
+    >
       <div className="hidden md:flex flex-col gap-y-2 bg-black h-full w-[300px] p-2">
         <Box>
           <div className="flex flex-col gap-y-4 px-5 py-4">
@@ -42,7 +53,7 @@ export default function SideBar({ children, songs }: Props) {
           </div>
         </Box>
         <Box className="overflow-y-auto h-full">
-          <Library songs={songs}/>
+          <Library songs={songs} />
         </Box>
       </div>
 

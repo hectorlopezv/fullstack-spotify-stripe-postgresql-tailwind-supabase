@@ -3,14 +3,14 @@
 import { Song } from "@/types";
 import MediaItem from "./media-items";
 import LikeButton from "./like-button";
+import useOnPlay from "@/hooks/useOnPlay";
 
 interface SearchContentProps {
   songs: Song[];
 }
 
 const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
-  //   const onPlay = useOnPlay(songs);
-  const onPlay = (id: string) => console.log(id);
+  const onPlay = useOnPlay(songs);
   if (songs.length === 0) {
     return (
       <div

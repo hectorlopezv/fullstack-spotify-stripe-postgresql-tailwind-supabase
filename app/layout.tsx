@@ -1,4 +1,5 @@
 import getSongsByUserId from "@/actions/get-songs-by-user-id";
+import Player from "@/components/player";
 import SideBar from "@/components/sidebar";
 import ModalProvider from "@/providers/modal-provider";
 import SupaBaseProvider from "@/providers/supabase-provider";
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
   description: "Spotify clone next13, strype, supabase, postgresql, tailwind",
 };
 
+export const revalidate = 0;
 export default async function RootLayout({
   children,
 }: {
@@ -29,6 +31,7 @@ export default async function RootLayout({
             <ToastProvider />
             <ModalProvider />
             <SideBar songs={userSongs}>{children}</SideBar>
+            <Player />
           </UserProvider>
         </SupaBaseProvider>
       </body>
